@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Prodotto {
 
-  protected int codice;
-  protected String nome;
-  protected String marca;
-  protected BigDecimal prezzo;
-  protected int iva;
+  private int codice;
+  private String nome;
+  private String marca;
+  private BigDecimal prezzo;
+  private int iva;
 
   // constructors
   public Prodotto(String nome, String marca, BigDecimal prezzo, int iva) {
