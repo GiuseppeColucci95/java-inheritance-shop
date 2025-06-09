@@ -58,4 +58,13 @@ public class Televisori extends Prodotto {
     return super.toString() + String.format(", lunghezza: %d, larghezza: %d, spessore: %d, smart: %s", lunghezza,
         larghezza, spessore, smart);
   }
+
+  @Override
+  public BigDecimal getPrezzoScontato() {
+    if (this.smart == false) {
+      return this.prezzo.subtract(this.prezzo.multiply(new BigDecimal(10)).divide(new BigDecimal(100)));
+    } else {
+      return super.getPrezzoScontato();
+    }
+  }
 }

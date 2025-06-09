@@ -36,4 +36,13 @@ public class Smartphone extends Prodotto {
   public String toString() {
     return super.toString() + String.format(", IMEI: %s, memoria: %d", imei, memoria);
   }
+
+  @Override
+  public BigDecimal getPrezzoScontato() {
+    if (this.memoria < 32) {
+      return this.prezzo.subtract(this.prezzo.multiply(new BigDecimal(5)).divide(new BigDecimal(100)));
+    } else {
+      return super.getPrezzoScontato();
+    }
+  }
 }

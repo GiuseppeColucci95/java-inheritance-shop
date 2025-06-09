@@ -36,4 +36,13 @@ public class Cuffie extends Prodotto {
   public String toString() {
     return super.toString() + String.format(", colore: %s, wireless: %s", colore, isWireless);
   }
+
+  @Override
+  public BigDecimal getPrezzoScontato() {
+    if (this.isWireless == false) {
+      return this.prezzo.subtract(this.prezzo.multiply(new BigDecimal(7)).divide(new BigDecimal(100)));
+    } else {
+      return super.getPrezzoScontato();
+    }
+  }
 }

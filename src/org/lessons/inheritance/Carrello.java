@@ -8,6 +8,7 @@ public class Carrello {
   public static void main(String[] args) {
 
     Prodotto[] carrello = new Prodotto[0];
+    BigDecimal totalPrice = new BigDecimal(0.00);
 
     Smartphone[] smartphones = {
         new Smartphone("Iphone 15 pro max", "Apple", new BigDecimal(1499.99), 22, "NCVW7IH4I7C", 256),
@@ -25,7 +26,14 @@ public class Carrello {
         new Cuffie("Galaxy Buds Pro", "Samsung", new BigDecimal(199.99), 22, "black", true)
     };
 
+    String[] carteFedelta = { "F987", "F977", "F187", "F922", "F399" };
+
     boolean insertInCart = true;
+    boolean hasFidelityCard = false;
+
+    Scanner scanFidelity = new Scanner(System.in);
+    System.out.print("Hai una fidelity Card? (yes, no): ");
+    String answerFidelityCard = scanFidelity.nextLine();
 
     while (insertInCart) {
       System.out.print("Scegli il prodotto da inserire nel carrello (es smartphones, televisori, cuffie...): ");
@@ -34,28 +42,58 @@ public class Carrello {
 
       switch (prodottoDaAggiungere) {
         case "smartphones":
-          System.out
-              .println("Scegli uno smartphone da aggiungere al carrello, selezionando il numero corrispondente: ");
-          for (int i = 0; i < smartphones.length; i++) {
+          if (answerFidelityCard.equals("yes")) {
             System.out
-                .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, smartphones[i].getNome(),
-                    smartphones[i].getMarca(), smartphones[i].getPrezzo()));
+                .println("Scegli uno smartphone da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < smartphones.length; i++) {
+              System.out
+                  .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, smartphones[i].getNome(),
+                      smartphones[i].getMarca(), smartphones[i].getPrezzoScontato()));
+            }
+          } else {
+            System.out
+                .println("Scegli uno smartphone da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < smartphones.length; i++) {
+              System.out
+                  .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, smartphones[i].getNome(),
+                      smartphones[i].getMarca(), smartphones[i].getPrezzo()));
+            }
           }
           break;
         case "televisori":
-          System.out.println("Scegli un televisore da aggiungere al carrello, selezionando il numero corrispondente: ");
-          for (int i = 0; i < televisori.length; i++) {
+          if (answerFidelityCard.equals("yes")) {
             System.out
-                .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, televisori[i].getNome(),
-                    televisori[i].getMarca(), televisori[i].getPrezzo()));
+                .println("Scegli un televisore da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < televisori.length; i++) {
+              System.out
+                  .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, televisori[i].getNome(),
+                      televisori[i].getMarca(), televisori[i].getPrezzoScontato()));
+            }
+          } else {
+            System.out
+                .println("Scegli un televisore da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < televisori.length; i++) {
+              System.out
+                  .println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, televisori[i].getNome(),
+                      televisori[i].getMarca(), televisori[i].getPrezzo()));
+            }
           }
           break;
         case "cuffie":
-          System.out
-              .println("Scegli un paio cuffie da aggiungere al carrello, selezionando il numero corrispondente: ");
-          for (int i = 0; i < cuffie.length; i++) {
-            System.out.println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, cuffie[i].getNome(),
-                cuffie[i].getMarca(), cuffie[i].getPrezzo()));
+          if (answerFidelityCard.equals("yes")) {
+            System.out
+                .println("Scegli un paio cuffie da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < cuffie.length; i++) {
+              System.out.println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, cuffie[i].getNome(),
+                  cuffie[i].getMarca(), cuffie[i].getPrezzoScontato()));
+            }
+          } else {
+            System.out
+                .println("Scegli un paio cuffie da aggiungere al carrello, selezionando il numero corrispondente: ");
+            for (int i = 0; i < cuffie.length; i++) {
+              System.out.println(String.format("ID: %d, nome: %s, marca: %s, prezzo: %.2f", i + 1, cuffie[i].getNome(),
+                  cuffie[i].getMarca(), cuffie[i].getPrezzo()));
+            }
           }
           break;
         default:
@@ -67,10 +105,20 @@ public class Carrello {
 
       switch (prodottoDaAggiungere) {
         case "smartphones":
-          Smartphone smartphoneDaAggiungere = new Smartphone(smartphones[idProdottoScelto].getNome(),
-              smartphones[idProdottoScelto].getMarca(), smartphones[idProdottoScelto].getPrezzo(),
-              smartphones[idProdottoScelto].getIva(), smartphones[idProdottoScelto].getImei(),
-              smartphones[idProdottoScelto].getMemoria());
+          Smartphone smartphoneDaAggiungere;
+          if (answerFidelityCard.equals("yes")) {
+            smartphoneDaAggiungere = new Smartphone(smartphones[idProdottoScelto].getNome(),
+                smartphones[idProdottoScelto].getMarca(), smartphones[idProdottoScelto].getPrezzoScontato(),
+                smartphones[idProdottoScelto].getIva(), smartphones[idProdottoScelto].getImei(),
+                smartphones[idProdottoScelto].getMemoria());
+            totalPrice = totalPrice.add(smartphones[idProdottoScelto].getPrezzoScontato());
+          } else {
+            smartphoneDaAggiungere = new Smartphone(smartphones[idProdottoScelto].getNome(),
+                smartphones[idProdottoScelto].getMarca(), smartphones[idProdottoScelto].getPrezzo(),
+                smartphones[idProdottoScelto].getIva(), smartphones[idProdottoScelto].getImei(),
+                smartphones[idProdottoScelto].getMemoria());
+            totalPrice = totalPrice.add(smartphones[idProdottoScelto].getPrezzo());
+          }
           for (int i = 0; i < carrello.length; i++) {
             nuovoCarrello[i] = carrello[i];
           }
@@ -78,11 +126,22 @@ public class Carrello {
           carrello = nuovoCarrello;
           break;
         case "televisori":
-          Televisori televisoreDaAggiungere = new Televisori(televisori[idProdottoScelto].getNome(),
-              televisori[idProdottoScelto].getMarca(), televisori[idProdottoScelto].getPrezzo(),
-              televisori[idProdottoScelto].getIva(), televisori[idProdottoScelto].getLunghezza(),
-              televisori[idProdottoScelto].getLarghezza(), televisori[idProdottoScelto].getSpessore(),
-              televisori[idProdottoScelto].getSmart());
+          Televisori televisoreDaAggiungere;
+          if (answerFidelityCard.equals("yes")) {
+            televisoreDaAggiungere = new Televisori(televisori[idProdottoScelto].getNome(),
+                televisori[idProdottoScelto].getMarca(), televisori[idProdottoScelto].getPrezzoScontato(),
+                televisori[idProdottoScelto].getIva(), televisori[idProdottoScelto].getLunghezza(),
+                televisori[idProdottoScelto].getLarghezza(), televisori[idProdottoScelto].getSpessore(),
+                televisori[idProdottoScelto].getSmart());
+            totalPrice = totalPrice.add(televisori[idProdottoScelto].getPrezzoScontato());
+          } else {
+            televisoreDaAggiungere = new Televisori(televisori[idProdottoScelto].getNome(),
+                televisori[idProdottoScelto].getMarca(), televisori[idProdottoScelto].getPrezzo(),
+                televisori[idProdottoScelto].getIva(), televisori[idProdottoScelto].getLunghezza(),
+                televisori[idProdottoScelto].getLarghezza(), televisori[idProdottoScelto].getSpessore(),
+                televisori[idProdottoScelto].getSmart());
+            totalPrice = totalPrice.add(televisori[idProdottoScelto].getPrezzo());
+          }
           for (int i = 0; i < carrello.length; i++) {
             nuovoCarrello[i] = carrello[i];
           }
@@ -90,10 +149,21 @@ public class Carrello {
           carrello = nuovoCarrello;
           break;
         case "cuffie":
-          Cuffie cuffieDaAggiungere = new Cuffie(cuffie[idProdottoScelto].getNome(),
-              cuffie[idProdottoScelto].getMarca(), cuffie[idProdottoScelto].getPrezzo(),
-              cuffie[idProdottoScelto].getIva(), cuffie[idProdottoScelto].getColore(),
-              cuffie[idProdottoScelto].isWireless());
+          Cuffie cuffieDaAggiungere;
+
+          if (answerFidelityCard.equals("yes")) {
+            cuffieDaAggiungere = new Cuffie(cuffie[idProdottoScelto].getNome(),
+                cuffie[idProdottoScelto].getMarca(), cuffie[idProdottoScelto].getPrezzoScontato(),
+                cuffie[idProdottoScelto].getIva(), cuffie[idProdottoScelto].getColore(),
+                cuffie[idProdottoScelto].isWireless());
+            totalPrice = totalPrice.add(cuffie[idProdottoScelto].getPrezzoScontato());
+          } else {
+            cuffieDaAggiungere = new Cuffie(cuffie[idProdottoScelto].getNome(),
+                cuffie[idProdottoScelto].getMarca(), cuffie[idProdottoScelto].getPrezzo(),
+                cuffie[idProdottoScelto].getIva(), cuffie[idProdottoScelto].getColore(),
+                cuffie[idProdottoScelto].isWireless());
+            totalPrice = totalPrice.add(cuffie[idProdottoScelto].getPrezzo());
+          }
           for (int i = 0; i < carrello.length; i++) {
             nuovoCarrello[i] = carrello[i];
           }
@@ -125,5 +195,6 @@ public class Carrello {
       System.out.println(carrello[i]);
     }
 
+    System.out.println(String.format("Il totale dell'ordine è: %.2f euro", totalPrice));
   }
 }

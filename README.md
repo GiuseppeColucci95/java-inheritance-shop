@@ -16,3 +16,12 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+## SNACKS
+
+- scambia il primo elemento con il penultimo e l'ultimo con il secondo di un array
+- restituisci il secondo elemento più grande in un array
+- rimuovi l'elemento centrale di un array se è dispari, i due elementi centrali se è pari
+- metodo che ritorni true se l'array contiene un duplicato, array di duplicati, quadrulicati
+- scrivi un programma che generi 30 numeri randomici diversi tra 0 e 55 e li inserisca in un array, stampali, ordinali e poi stampa l'array ordinato senza usare il metodo sort
+- scrivi un programma che legga una sequenza di # e mostri i valori inseriti nell'ordine che ritenete opportuno
